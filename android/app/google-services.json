@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "43188923589",
+    "project_id": "capytify",
+    "storage_bucket": "capytify.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:43188923589:android:7a50371d2efb7dff2c14ac",
+        "android_client_info": {
+          "package_name": "com.example.capytify"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB1LPDLVSxz-uJsUcn5ZemBSr6W5k83iHo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
