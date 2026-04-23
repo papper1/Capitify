@@ -3,10 +3,7 @@ import 'package:capytify/features/home/presentation/widgets/home_artwork.dart';
 import 'package:flutter/material.dart';
 
 class HomeFeaturedArtwork extends StatelessWidget {
-  const HomeFeaturedArtwork({
-    super.key,
-    required this.item,
-  });
+  const HomeFeaturedArtwork({super.key, required this.item});
 
   final HomeShelfCardData item;
 

@@ -41,7 +41,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(width: 80),
                   const Text(
                     'Log in',
-                    style: TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),
@@ -81,48 +85,62 @@ class _LoginScreenState extends State<LoginScreen> {
                 width: double.infinity,
                 height: 48,
                 child: ElevatedButton(
-                  onPressed: authViewModel.isLoading
-                      ? null
-                      : () async {
-                          final email = _emailController.text.trim();
-                          final password = _passwordController.text.trim();
+                  onPressed:
+                      authViewModel.isLoading
+                          ? null
+                          : () async {
+                            final email = _emailController.text.trim();
+                            final password = _passwordController.text.trim();
 
-                          if (email.isEmpty || password.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Vui long nhap day du email va mat khau'),
-                              ),
+                            if (email.isEmpty || password.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    'Vui long nhap day du email va mat khau',
+                                  ),
+                                ),
+                              );
+                              return;
+                            }
+
+                            final success = await authViewModel.signIn(
+                              email,
+                              password,
                             );
-                            return;
-                          }
+                            if (!context.mounted) return;
 
-                          final success = await authViewModel.signIn(
-                            email,
-                            password,
-                          );
-                          if (!context.mounted) return;
-
-                          if (success) {
-                            Navigator.of(context).popUntil((route) => route.isFirst);
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(authViewModel.errorMessage ?? 'Dang nhap that bai'),
-                              ),
-                            );
-                          }
-                        },
+                            if (success) {
+                              Navigator.of(
+                                context,
+                              ).popUntil((route) => route.isFirst);
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    authViewModel.errorMessage ??
+                                        'Dang nhap that bai',
+                                  ),
+                                ),
+                              );
+                            }
+                          },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF1ED760),
                     foregroundColor: Colors.black,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
                   ),
-                  child: authViewModel.isLoading
-                      ? const CircularProgressIndicator(color: Colors.black)
-                      : const Text(
-                          'Log in',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
+                  child:
+                      authViewModel.isLoading
+                          ? const CircularProgressIndicator(color: Colors.black)
+                          : const Text(
+                            'Log in',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                 ),
               ),
             ],

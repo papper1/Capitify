@@ -55,10 +55,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 4),
-                  Text(
-                    subtitle,
-                    style: const TextStyle(color: Colors.white70),
-                  ),
+                  Text(subtitle, style: const TextStyle(color: Colors.white70)),
                   const SizedBox(height: 8),
                   ElevatedButton(
                     onPressed: () {},
@@ -92,7 +89,11 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 12),
                   ListTile(
-                    leading: Icon(Icons.music_note, color: Colors.white, size: 40),
+                    leading: Icon(
+                      Icons.music_note,
+                      color: Colors.white,
+                      size: 40,
+                    ),
                     title: Text(
                       'Danh sach phat cua toi #1',
                       style: TextStyle(color: Colors.white),
@@ -122,13 +123,11 @@ class ProfileScreen extends StatelessWidget {
   }
 
   Widget _buildUserAvatar(String? photoUrl, String label) {
-    final firstChar = label.isNotEmpty ? label.substring(0, 1).toUpperCase() : 'U';
+    final firstChar =
+        label.isNotEmpty ? label.substring(0, 1).toUpperCase() : 'U';
 
     if (photoUrl != null && photoUrl.isNotEmpty) {
-      return CircleAvatar(
-        radius: 40,
-        backgroundImage: NetworkImage(photoUrl),
-      );
+      return CircleAvatar(radius: 40, backgroundImage: NetworkImage(photoUrl));
     }
 
     return CircleAvatar(

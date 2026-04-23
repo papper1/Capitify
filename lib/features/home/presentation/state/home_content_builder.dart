@@ -41,21 +41,24 @@ class HomeContentBuilder {
     final radioItems = buildShelfCards(
       sourceSongs: songs,
       titleBuilder: (song, index) => radioTitle(song, index),
-      subtitleBuilder: (song, index) => radioSubtitle(song, songs, artists, index),
+      subtitleBuilder:
+          (song, index) => radioSubtitle(song, songs, artists, index),
       paletteBuilder: (_, index) => radioPalette(index + 5),
       maxItems: 8,
     );
     final discoverItems = buildShelfCards(
       sourceSongs: songs.reversed.toList(),
       titleBuilder: (song, index) => discoverTitle(song, index),
-      subtitleBuilder: (song, index) => discoverSubtitle(song, songs, artists, index),
+      subtitleBuilder:
+          (song, index) => discoverSubtitle(song, songs, artists, index),
       paletteBuilder: (_, index) => radioPalette(index),
       maxItems: 8,
     );
     final basedOnRecentItems = buildShelfCards(
       sourceSongs: recentSongs.isNotEmpty ? recentSongs : songs,
       titleBuilder: (song, index) => mixTitle(song.title, artists, index),
-      subtitleBuilder: (song, index) => mixSubtitle(song, songs, artists, index),
+      subtitleBuilder:
+          (song, index) => mixSubtitle(song, songs, artists, index),
       paletteBuilder: (_, index) => playlistPalette(index),
       maxItems: 8,
     );
@@ -95,7 +98,9 @@ class HomeContentBuilder {
     }
 
     for (final artist in artists.take(4)) {
-      if (items.any((item) => item.title.toLowerCase() == artist.name.toLowerCase())) {
+      if (items.any(
+        (item) => item.title.toLowerCase() == artist.name.toLowerCase(),
+      )) {
         continue;
       }
       items.add(
@@ -111,7 +116,9 @@ class HomeContentBuilder {
       if (items.length >= 8) {
         break;
       }
-      if (items.any((item) => item.title.toLowerCase() == song.title.toLowerCase())) {
+      if (items.any(
+        (item) => item.title.toLowerCase() == song.title.toLowerCase(),
+      )) {
         continue;
       }
       items.add(
@@ -151,7 +158,8 @@ class HomeContentBuilder {
       items.add(
         HomeRecentCollectionItem(
           title: song.title,
-          subtitle: i.isEven ? 'Dia don | Cong dong yeu thich' : 'Danh sach phat',
+          subtitle:
+              i.isEven ? 'Dia don | Cong dong yeu thich' : 'Danh sach phat',
           imageUrl: song.imageUrl,
           song: song,
         ),
@@ -198,7 +206,12 @@ class HomeContentBuilder {
     return 'Hot Hits ${baseTitle.split(' ').first}';
   }
 
-  String mixSubtitle(Song song, List<Song> songs, List<Artist> artists, int index) {
+  String mixSubtitle(
+    Song song,
+    List<Song> songs,
+    List<Artist> artists,
+    int index,
+  ) {
     final names = <String>{song.artist};
 
     if (artists.isNotEmpty) {
@@ -221,7 +234,12 @@ class HomeContentBuilder {
     return 'This is ${song.artist}';
   }
 
-  String discoverSubtitle(Song song, List<Song> songs, List<Artist> artists, int index) {
+  String discoverSubtitle(
+    Song song,
+    List<Song> songs,
+    List<Artist> artists,
+    int index,
+  ) {
     final names = <String>{song.artist};
 
     if (songs.isNotEmpty) {
@@ -242,7 +260,12 @@ class HomeContentBuilder {
     return '${song.artist.split(' ').first} Radio';
   }
 
-  String radioSubtitle(Song song, List<Song> songs, List<Artist> artists, int index) {
+  String radioSubtitle(
+    Song song,
+    List<Song> songs,
+    List<Artist> artists,
+    int index,
+  ) {
     final names = <String>{song.artist};
 
     if (songs.isNotEmpty) {

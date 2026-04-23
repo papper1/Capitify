@@ -2,10 +2,7 @@ import 'package:capytify/features/home/presentation/widgets/home_filter_chip_pil
 import 'package:flutter/material.dart';
 
 class HomePrimaryFilters extends StatelessWidget {
-  const HomePrimaryFilters({
-    super.key,
-    required this.filters,
-  });
+  const HomePrimaryFilters({super.key, required this.filters});
 
   final List<String> filters;
 
@@ -17,11 +14,10 @@ class HomePrimaryFilters extends StatelessWidget {
         children: List.generate(filters.length, (index) {
           final label = filters[index];
           return Padding(
-            padding: EdgeInsets.only(right: index == filters.length - 1 ? 0 : 12),
-            child: HomeFilterChipPill(
-              label: label,
-              isSelected: index == 0,
+            padding: EdgeInsets.only(
+              right: index == filters.length - 1 ? 0 : 12,
             ),
+            child: HomeFilterChipPill(label: label, isSelected: index == 0),
           );
         }),
       ),

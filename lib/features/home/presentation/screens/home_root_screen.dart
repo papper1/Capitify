@@ -26,15 +26,9 @@ class _HomeRootScreenState extends State<HomeRootScreen> {
       body: Stack(
         children: [
           Positioned.fill(
-            child: IndexedStack(
-              index: _currentIndex,
-              children: _screens,
-            ),
+            child: IndexedStack(index: _currentIndex, children: _screens),
           ),
-          const Align(
-            alignment: Alignment.bottomCenter,
-            child: MiniPlayer(),
-          ),
+          const Align(alignment: Alignment.bottomCenter, child: MiniPlayer()),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -46,7 +40,10 @@ class _HomeRootScreenState extends State<HomeRootScreen> {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
-          BottomNavigationBarItem(icon: Icon(Icons.library_music), label: "Library"),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.library_music),
+            label: "Library",
+          ),
         ],
       ),
     );

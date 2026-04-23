@@ -14,11 +14,7 @@ class HomeQuickAccessItem {
     required String imageUrl,
     required Song song,
   }) {
-    return HomeQuickAccessItem(
-      title: title,
-      imageUrl: imageUrl,
-      song: song,
-    );
+    return HomeQuickAccessItem(title: title, imageUrl: imageUrl, song: song);
   }
 
   factory HomeQuickAccessItem.artist({

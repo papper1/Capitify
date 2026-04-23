@@ -9,37 +9,38 @@ class MiniPlayer extends StatelessWidget {
 
   Widget _buildArtwork(String imageUrl, {double size = 40}) {
     final isNetworkImage = imageUrl.startsWith('http');
-    final image = isNetworkImage
-        ? Image.network(
-            imageUrl,
-            width: size,
-            height: size,
-            fit: BoxFit.cover,
-            errorBuilder: (_, __, ___) =>
-                Icon(Icons.music_note, size: size, color: Colors.white),
-          )
-        : Image.asset(
-            imageUrl,
-            width: size,
-            height: size,
-            fit: BoxFit.cover,
-            errorBuilder: (_, __, ___) =>
-                Icon(Icons.music_note, size: size, color: Colors.white),
-          );
+    final image =
+        isNetworkImage
+            ? Image.network(
+              imageUrl,
+              width: size,
+              height: size,
+              fit: BoxFit.cover,
+              errorBuilder:
+                  (_, __, ___) =>
+                      Icon(Icons.music_note, size: size, color: Colors.white),
+            )
+            : Image.asset(
+              imageUrl,
+              width: size,
+              height: size,
+              fit: BoxFit.cover,
+              errorBuilder:
+                  (_, __, ___) =>
+                      Icon(Icons.music_note, size: size, color: Colors.white),
+            );
 
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(4),
-      child: image,
-    );
+    return ClipRRect(borderRadius: BorderRadius.circular(4), child: image);
   }
 
   @override
   Widget build(BuildContext context) {
     return Selector<MiniPlayerProvider, _MiniPlayerViewData>(
-      selector: (_, miniPlayer) => _MiniPlayerViewData(
-        currentSong: miniPlayer.currentSong,
-        isPlaying: miniPlayer.isPlaying,
-      ),
+      selector:
+          (_, miniPlayer) => _MiniPlayerViewData(
+            currentSong: miniPlayer.currentSong,
+            isPlaying: miniPlayer.isPlaying,
+          ),
       builder: (context, viewData, child) {
         final currentSong = viewData.currentSong;
         if (currentSong == null) {
@@ -68,12 +69,18 @@ class MiniPlayer extends StatelessWidget {
                     children: [
                       Text(
                         currentSong.title,
-                        style: const TextStyle(color: Colors.white, fontSize: 12),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                        ),
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
                         currentSong.artist,
-                        style: const TextStyle(color: Colors.white70, fontSize: 10),
+                        style: const TextStyle(
+                          color: Colors.white70,
+                          fontSize: 10,
+                        ),
                         overflow: TextOverflow.ellipsis,
                       ),
                     ],

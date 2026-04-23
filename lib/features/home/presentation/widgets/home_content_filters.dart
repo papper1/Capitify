@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
 class HomeContentFilters extends StatelessWidget {
-  const HomeContentFilters({
-    super.key,
-    required this.filters,
-  });
+  const HomeContentFilters({super.key, required this.filters});
 
   final List<String> filters;
 
@@ -16,7 +13,9 @@ class HomeContentFilters extends StatelessWidget {
         children: List.generate(filters.length, (index) {
           final label = filters[index];
           return Padding(
-            padding: EdgeInsets.only(right: index == filters.length - 1 ? 0 : 22),
+            padding: EdgeInsets.only(
+              right: index == filters.length - 1 ? 0 : 22,
+            ),
             child: Text(
               label,
               style: const TextStyle(

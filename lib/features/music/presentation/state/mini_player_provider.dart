@@ -6,15 +6,11 @@ import 'package:just_audio/just_audio.dart';
 import 'package:capytify/features/music/data/models/song.dart';
 import 'package:capytify/features/music/data/services/local_cache_service.dart';
 
-enum RepeatModeState {
-  off,
-  all,
-  one,
-}
+enum RepeatModeState { off, all, one }
 
 class MiniPlayerProvider extends ChangeNotifier {
   MiniPlayerProvider({required LocalCacheService localCacheService})
-      : _localCacheService = localCacheService {
+    : _localCacheService = localCacheService {
     _recentlyPlayed = _localCacheService.loadRecentlyPlayed();
 
     _audioPlayer.playerStateStream.listen((state) {
@@ -101,17 +97,15 @@ class MiniPlayerProvider extends ChangeNotifier {
     if (_repeatMode == RepeatModeState.all && _queue.length > 1) {
       return true;
     }
-    return _playOrderPosition >= 0 && _playOrderPosition < _playOrder.length - 1;
+    return _playOrderPosition >= 0 &&
+        _playOrderPosition < _playOrder.length - 1;
   }
 
   Future<void> setSong(Song song) async {
     await setQueue(songs: [song], startIndex: 0);
   }
 
-  Future<void> setQueue({
-    required List<Song> songs,
-    int startIndex = 0,
-  }) async {
+  Future<void> setQueue({required List<Song> songs, int startIndex = 0}) async {
     if (songs.isEmpty) {
       return;
     }
@@ -184,7 +178,8 @@ class MiniPlayerProvider extends ChangeNotifier {
   }
 
   void _rememberRecentlyPlayed(Song song) {
-    final updated = _recentlyPlayed.where((item) => item.id != song.id).toList();
+    final updated =
+        _recentlyPlayed.where((item) => item.id != song.id).toList();
     updated.insert(0, song);
     final nextRecentlyPlayed = updated.take(20).toList();
     if (_recentlyPlayed.length != nextRecentlyPlayed.length ||

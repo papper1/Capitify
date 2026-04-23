@@ -14,9 +14,7 @@ class TestMiniPlayerScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: AppBar(
-        title: const Text('Test Mini Player'),
-      ),
+      appBar: AppBar(title: const Text('Test Mini Player')),
       body: Center(
         child: ElevatedButton(
           onPressed: () {

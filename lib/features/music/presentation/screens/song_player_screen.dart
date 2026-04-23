@@ -18,10 +18,7 @@ Future<void> openNowPlayingScreen(BuildContext context) {
         );
       },
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        return FadeTransition(
-          opacity: animation,
-          child: child,
-        );
+        return FadeTransition(opacity: animation, child: child);
       },
     ),
   );
@@ -36,23 +33,32 @@ class NowPlayingContent extends StatelessWidget {
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(8),
-      child: isNetworkImage
-          ? Image.network(
-              imageUrl,
-              width: size,
-              height: size,
-              fit: BoxFit.cover,
-              errorBuilder: (_, __, ___) =>
-                  Icon(Icons.music_note, size: size * 0.4, color: Colors.white),
-            )
-          : Image.asset(
-              imageUrl,
-              width: size,
-              height: size,
-              fit: BoxFit.cover,
-              errorBuilder: (_, __, ___) =>
-                  Icon(Icons.music_note, size: size * 0.4, color: Colors.white),
-            ),
+      child:
+          isNetworkImage
+              ? Image.network(
+                imageUrl,
+                width: size,
+                height: size,
+                fit: BoxFit.cover,
+                errorBuilder:
+                    (_, __, ___) => Icon(
+                      Icons.music_note,
+                      size: size * 0.4,
+                      color: Colors.white,
+                    ),
+              )
+              : Image.asset(
+                imageUrl,
+                width: size,
+                height: size,
+                fit: BoxFit.cover,
+                errorBuilder:
+                    (_, __, ___) => Icon(
+                      Icons.music_note,
+                      size: size * 0.4,
+                      color: Colors.white,
+                    ),
+              ),
     );
   }
 
@@ -83,10 +89,7 @@ class NowPlayingContent extends StatelessWidget {
 
     if (currentSong == null) {
       return const Center(
-        child: Text(
-          'No song selected.',
-          style: TextStyle(color: Colors.white),
-        ),
+        child: Text('No song selected.', style: TextStyle(color: Colors.white)),
       );
     }
 
@@ -107,15 +110,27 @@ class NowPlayingContent extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 IconButton(
-                  icon: const Icon(Icons.keyboard_arrow_down, color: Colors.white, size: 28),
+                  icon: const Icon(
+                    Icons.keyboard_arrow_down,
+                    color: Colors.white,
+                    size: 28,
+                  ),
                   onPressed: () => Navigator.of(context).pop(),
                 ),
                 const Text(
                   'Now Playing',
-                  style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 IconButton(
-                  icon: const Icon(Icons.more_vert, color: Colors.white, size: 28),
+                  icon: const Icon(
+                    Icons.more_vert,
+                    color: Colors.white,
+                    size: 28,
+                  ),
                   onPressed: () {},
                 ),
               ],
@@ -134,7 +149,11 @@ class NowPlayingContent extends StatelessWidget {
                 Text(
                   currentSong.title,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 const SizedBox(height: 8),
                 Text(
@@ -149,7 +168,10 @@ class NowPlayingContent extends StatelessWidget {
           Consumer<MiniPlayerProvider>(
             builder: (context, mini, child) {
               final total = mini.duration.inMilliseconds.toDouble();
-              final current = mini.position.inMilliseconds.toDouble().clamp(0, total);
+              final current = mini.position.inMilliseconds.toDouble().clamp(
+                0,
+                total,
+              );
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Column(
@@ -169,11 +191,17 @@ class NowPlayingContent extends StatelessWidget {
                       children: [
                         Text(
                           _formatDuration(mini.position),
-                          style: const TextStyle(color: Colors.white70, fontSize: 12),
+                          style: const TextStyle(
+                            color: Colors.white70,
+                            fontSize: 12,
+                          ),
                         ),
                         Text(
                           _formatDuration(mini.duration),
-                          style: const TextStyle(color: Colors.white70, fontSize: 12),
+                          style: const TextStyle(
+                            color: Colors.white70,
+                            fontSize: 12,
+                          ),
                         ),
                       ],
                     ),
@@ -191,7 +219,10 @@ class NowPlayingContent extends StatelessWidget {
                   IconButton(
                     icon: Icon(
                       Icons.shuffle,
-                      color: miniPlayer.isShuffleEnabled ? const Color(0xFF1ED760) : Colors.white,
+                      color:
+                          miniPlayer.isShuffleEnabled
+                              ? const Color(0xFF1ED760)
+                              : Colors.white,
                       size: 28,
                     ),
                     onPressed: miniPlayer.toggleShuffle,
@@ -200,17 +231,21 @@ class NowPlayingContent extends StatelessWidget {
                   IconButton(
                     icon: Icon(
                       Icons.skip_previous,
-                      color: miniPlayer.hasPrevious
-                          ? Colors.white
-                          : Colors.white38,
+                      color:
+                          miniPlayer.hasPrevious
+                              ? Colors.white
+                              : Colors.white38,
                       size: 36,
                     ),
-                    onPressed: miniPlayer.hasPrevious ? miniPlayer.previousSong : null,
+                    onPressed:
+                        miniPlayer.hasPrevious ? miniPlayer.previousSong : null,
                   ),
                   const SizedBox(width: 20),
                   IconButton(
                     icon: Icon(
-                      miniPlayer.isPlaying ? Icons.pause_circle_filled : Icons.play_circle_fill,
+                      miniPlayer.isPlaying
+                          ? Icons.pause_circle_filled
+                          : Icons.play_circle_fill,
                       color: Colors.white,
                       size: 64,
                     ),

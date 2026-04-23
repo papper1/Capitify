@@ -38,7 +38,8 @@ class HomeScreen extends StatelessWidget {
       artists: artistLibrary.artists,
       songs: songLibrary.songs,
       recentSongs: miniPlayer.recentlyPlayed,
-      isLoading: artistLibrary.isLoading &&
+      isLoading:
+          artistLibrary.isLoading &&
           artistLibrary.artists.isEmpty &&
           songLibrary.isLoading &&
           songLibrary.songs.isEmpty,
@@ -81,8 +82,11 @@ class HomeScreen extends StatelessWidget {
                 color: const Color(0xFF1ED760),
                 backgroundColor: const Color(0xFF171717),
                 onRefresh: () async {
-                  await context.read<ArtistLibraryViewModel>().loadArtists(showLoading: false);
-                  await context.read<SongLibraryViewModel>().loadSongs(showLoading: false);
+                  final artistLibrary = context.read<ArtistLibraryViewModel>();
+                  final songLibrary = context.read<SongLibraryViewModel>();
+
+                  await artistLibrary.loadArtists(showLoading: false);
+                  await songLibrary.loadSongs(showLoading: false);
                 },
                 child: ListView(
                   padding: const EdgeInsets.fromLTRB(16, 12, 16, 120),
@@ -93,10 +97,13 @@ class HomeScreen extends StatelessWidget {
                       onAvatarTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (_) => const ProfileScreen()),
+                          MaterialPageRoute(
+                            builder: (_) => const ProfileScreen(),
+                          ),
                         );
                       },
-                      onSettingsTap: () => Navigator.pushNamed(context, '/settings'),
+                      onSettingsTap:
+                          () => Navigator.pushNamed(context, '/settings'),
                     ),
                     const SizedBox(height: 14),
                     HomePrimaryFilters(filters: viewModel.primaryFilters),
@@ -141,7 +148,9 @@ class HomeScreen extends StatelessWidget {
                       const SizedBox(height: 30),
                     ],
                     if (viewModel.basedOnRecentItems.isNotEmpty) ...[
-                      const HomeSectionTitle(title: 'Dua tren nhac ban nghe gan day'),
+                      const HomeSectionTitle(
+                        title: 'Dua tren nhac ban nghe gan day',
+                      ),
                       const SizedBox(height: 14),
                       HomeShelfRow(
                         items: viewModel.basedOnRecentItems,
@@ -173,9 +182,9 @@ class HomeScreen extends StatelessWidget {
   ) async {
     if (item.song != null) {
       await context.read<MiniPlayerProvider>().setQueue(
-            songs: [item.song!],
-            startIndex: 0,
-          );
+        songs: [item.song!],
+        startIndex: 0,
+      );
       if (!context.mounted) return;
       await openNowPlayingScreen(context);
       return;
@@ -203,9 +212,9 @@ class HomeScreen extends StatelessWidget {
 
     if (item.song != null) {
       await context.read<MiniPlayerProvider>().setQueue(
-            songs: [item.song!],
-            startIndex: 0,
-          );
+        songs: [item.song!],
+        startIndex: 0,
+      );
       if (!context.mounted) return;
       await openNowPlayingScreen(context);
     }
@@ -216,9 +225,9 @@ class HomeScreen extends StatelessWidget {
     HomeShelfCardData item,
   ) async {
     await context.read<MiniPlayerProvider>().setQueue(
-          songs: [item.song],
-          startIndex: 0,
-        );
+      songs: [item.song],
+      startIndex: 0,
+    );
     if (!context.mounted) return;
     await openNowPlayingScreen(context);
   }

@@ -8,8 +8,8 @@ class ArtistLibraryViewModel extends ChangeNotifier {
   ArtistLibraryViewModel({
     MusicLibraryService? musicLibraryService,
     required LocalCacheService localCacheService,
-  })  : _musicLibraryService = musicLibraryService ?? MusicLibraryService(),
-        _localCacheService = localCacheService {
+  }) : _musicLibraryService = musicLibraryService ?? MusicLibraryService(),
+       _localCacheService = localCacheService {
     _artists = _localCacheService.loadArtists();
     _isLoading = _artists.isEmpty;
     loadArtists(showLoading: _artists.isEmpty);

@@ -18,10 +18,7 @@ class HomeTopBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        GestureDetector(
-          onTap: onAvatarTap,
-          child: _buildUserAvatar(),
-        ),
+        GestureDetector(onTap: onAvatarTap, child: _buildUserAvatar()),
         const Spacer(),
         IconButton(
           padding: EdgeInsets.zero,
@@ -48,13 +45,11 @@ class HomeTopBar extends StatelessWidget {
   }
 
   Widget _buildUserAvatar() {
-    final firstChar = label.isNotEmpty ? label.substring(0, 1).toUpperCase() : 'U';
+    final firstChar =
+        label.isNotEmpty ? label.substring(0, 1).toUpperCase() : 'U';
 
     if (photoUrl != null && photoUrl!.isNotEmpty) {
-      return CircleAvatar(
-        radius: 22,
-        backgroundImage: NetworkImage(photoUrl!),
-      );
+      return CircleAvatar(radius: 22, backgroundImage: NetworkImage(photoUrl!));
     }
 
     return CircleAvatar(

@@ -36,7 +36,10 @@ class _SignupScreenState extends State<SignupScreen> {
     }
 
     if (_currentPage < 3) {
-      _pageController.nextPage(duration: const Duration(milliseconds: 300), curve: Curves.ease);
+      _pageController.nextPage(
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.ease,
+      );
       setState(() => _currentPage++);
     }
   }
@@ -74,9 +77,9 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   void _showMessage(String message) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message)),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
   }
 
   Future<void> _createAccount() async {
@@ -157,7 +160,11 @@ class _SignupScreenState extends State<SignupScreen> {
             const SizedBox(height: 30),
             const Text(
               "What's your name?",
-              style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 12),
             TextField(
@@ -187,13 +194,17 @@ class _SignupScreenState extends State<SignupScreen> {
               text: TextSpan(
                 style: TextStyle(color: Colors.white, fontSize: 12),
                 children: [
-                  TextSpan(text: 'By tapping on "Create account", you agree to the Spotify '),
+                  TextSpan(
+                    text:
+                        'By tapping on "Create account", you agree to the Spotify ',
+                  ),
                   TextSpan(
                     text: 'Terms of Use\n',
                     style: TextStyle(color: Color(0xFF1ED760)),
                   ),
                   TextSpan(
-                    text: 'To learn more about how Spotify collects and uses your data, please see the ',
+                    text:
+                        'To learn more about how Spotify collects and uses your data, please see the ',
                   ),
                   TextSpan(
                     text: 'Privacy Policy\n',
@@ -233,15 +244,22 @@ class _SignupScreenState extends State<SignupScreen> {
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.black,
                   shape: const StadiumBorder(),
-                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 16,
+                  ),
                 ),
-                child: authViewModel.isLoading
-                    ? const SizedBox(
-                        width: 20,
-                        height: 20,
-                        child: CircularProgressIndicator(strokeWidth: 2, color: Colors.black),
-                      )
-                    : const Text('Create an account'),
+                child:
+                    authViewModel.isLoading
+                        ? const SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Colors.black,
+                          ),
+                        )
+                        : const Text('Create an account'),
               ),
             ),
           ],
@@ -265,14 +283,22 @@ class _SignupScreenState extends State<SignupScreen> {
           const SizedBox(height: 30),
           const Text(
             "What's your gender?",
-            style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           const SizedBox(height: 16),
           DropdownButtonFormField<String>(
-            value: selectedGender,
-            items: ['Male', 'Female', 'Other']
-                .map((gender) => DropdownMenuItem(value: gender, child: Text(gender)))
-                .toList(),
+            initialValue: selectedGender,
+            items:
+                ['Male', 'Female', 'Other']
+                    .map(
+                      (gender) =>
+                          DropdownMenuItem(value: gender, child: Text(gender)),
+                    )
+                    .toList(),
             dropdownColor: Colors.grey[900],
             decoration: InputDecoration(
               filled: true,
@@ -321,7 +347,11 @@ class _SignupScreenState extends State<SignupScreen> {
           const SizedBox(height: 30),
           Text(
             title,
-            style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           const SizedBox(height: 8),
           TextField(
@@ -341,7 +371,10 @@ class _SignupScreenState extends State<SignupScreen> {
           ),
           if (subtitle != null) ...[
             const SizedBox(height: 8),
-            Text(subtitle, style: const TextStyle(color: Colors.white38, fontSize: 12)),
+            Text(
+              subtitle,
+              style: const TextStyle(color: Colors.white38, fontSize: 12),
+            ),
           ],
           const SizedBox(height: 30),
           ElevatedButton(
@@ -366,7 +399,10 @@ class _SignupScreenState extends State<SignupScreen> {
             alignment: Alignment.centerLeft,
             child: IconButton(
               onPressed: () {
-                _pageController.previousPage(duration: const Duration(milliseconds: 300), curve: Curves.ease);
+                _pageController.previousPage(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.ease,
+                );
                 setState(() => _currentPage--);
               },
               icon: const Icon(Icons.arrow_back, color: Colors.white),

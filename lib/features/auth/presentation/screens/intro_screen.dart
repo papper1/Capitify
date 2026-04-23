@@ -13,18 +13,12 @@ class IntroScreen extends StatelessWidget {
           SizedBox.expand(
             child: Opacity(
               opacity: 0.8, // 👈 độ mờ từ 0.0 (trong suốt) đến 1.0 (rõ nét)
-              child: Image.asset(
-                'assets/images/intro.jpg',
-                fit: BoxFit.cover,
-              ),
+              child: Image.asset('assets/images/intro.jpg', fit: BoxFit.cover),
             ),
           ),
 
-
           // Lớp phủ tối nhẹ để chữ nổi bật hơn
-          Container(
-            color: Colors.black.withOpacity(0.3),
-          ),
+          Container(color: Colors.black.withValues(alpha: 0.3)),
 
           // Nội dung chính
           Padding(
@@ -33,12 +27,7 @@ class IntroScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 // Logo
-                Column(
-                  children: [
-
-
-                  ],
-                ),
+                Column(children: []),
 
                 // Dòng giới thiệu
                 Column(
@@ -55,10 +44,7 @@ class IntroScreen extends StatelessWidget {
                     SizedBox(height: 12),
                     Text(
                       "Discover millions of free songs and podcasts, anytime, anywhere with Capytify.",
-                      style: TextStyle(
-                        color: Colors.white70,
-                        fontSize: 16,
-                      ),
+                      style: TextStyle(color: Colors.white70, fontSize: 16),
                       textAlign: TextAlign.center,
                     ),
                   ],
@@ -68,28 +54,30 @@ class IntroScreen extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   height: 50,
-                  child:ElevatedButton(
+                  child: ElevatedButton(
                     onPressed: () {
                       Navigator.push(
                         context,
                         PageRouteBuilder(
                           transitionDuration: const Duration(milliseconds: 230),
-                          pageBuilder: (_, animation, __) => const AuthChoiceScreen(),
+                          pageBuilder:
+                              (_, animation, __) => const AuthChoiceScreen(),
                           transitionsBuilder: (_, animation, __, child) {
                             return SlideTransition(
                               position: Tween<Offset>(
                                 begin: const Offset(1.0, 0.0),
                                 end: Offset.zero,
                               ).animate(
-                                CurvedAnimation(parent: animation, curve: Curves.ease),
+                                CurvedAnimation(
+                                  parent: animation,
+                                  curve: Curves.ease,
+                                ),
                               ),
                               child: child,
                             );
                           },
                         ),
                       );
-
-
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF1ED760),
@@ -100,10 +88,12 @@ class IntroScreen extends StatelessWidget {
                     ),
                     child: const Text(
                       "Get Started",
-                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
-
                 ),
               ],
             ),

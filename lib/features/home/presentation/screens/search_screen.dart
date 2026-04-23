@@ -62,15 +62,16 @@ class _SearchScreenState extends State<SearchScreen> {
                 hintText: 'Artists, songs, or podcasts',
                 hintStyle: const TextStyle(color: Colors.white70),
                 prefixIcon: const Icon(Icons.search, color: Colors.white),
-                suffixIcon: _query.isNotEmpty
-                    ? IconButton(
-                        icon: const Icon(Icons.close, color: Colors.white70),
-                        onPressed: () {
-                          _searchController.clear();
-                          setState(() => _query = '');
-                        },
-                      )
-                    : null,
+                suffixIcon:
+                    _query.isNotEmpty
+                        ? IconButton(
+                          icon: const Icon(Icons.close, color: Colors.white70),
+                          onPressed: () {
+                            _searchController.clear();
+                            setState(() => _query = '');
+                          },
+                        )
+                        : null,
                 filled: true,
                 fillColor: Colors.grey[800],
                 border: OutlineInputBorder(
@@ -86,7 +87,11 @@ class _SearchScreenState extends State<SearchScreen> {
             else ...[
               const Text(
                 'Browse all',
-                style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const SizedBox(height: 12),
               Wrap(
@@ -155,7 +160,11 @@ class _SearchScreenState extends State<SearchScreen> {
       children: [
         const Text(
           'Bai hat goi y',
-          style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         const SizedBox(height: 12),
         ...List.generate(suggestions.length, (index) {
@@ -197,11 +206,13 @@ class _SearchScreenState extends State<SearchScreen> {
       return const [];
     }
 
-    final results = songs.where((song) {
-      final title = song.title.toLowerCase();
-      final artist = song.artist.toLowerCase();
-      return title.contains(normalizedQuery) || artist.contains(normalizedQuery);
-    }).toList();
+    final results =
+        songs.where((song) {
+          final title = song.title.toLowerCase();
+          final artist = song.artist.toLowerCase();
+          return title.contains(normalizedQuery) ||
+              artist.contains(normalizedQuery);
+        }).toList();
 
     return results.take(6).toList();
   }
@@ -211,21 +222,22 @@ class _SearchScreenState extends State<SearchScreen> {
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(8),
-      child: isNetworkImage
-          ? Image.network(
-              song.imageUrl,
-              width: 52,
-              height: 52,
-              fit: BoxFit.cover,
-              errorBuilder: (_, __, ___) => _buildArtworkPlaceholder(),
-            )
-          : Image.asset(
-              song.imageUrl,
-              width: 52,
-              height: 52,
-              fit: BoxFit.cover,
-              errorBuilder: (_, __, ___) => _buildArtworkPlaceholder(),
-            ),
+      child:
+          isNetworkImage
+              ? Image.network(
+                song.imageUrl,
+                width: 52,
+                height: 52,
+                fit: BoxFit.cover,
+                errorBuilder: (_, __, ___) => _buildArtworkPlaceholder(),
+              )
+              : Image.asset(
+                song.imageUrl,
+                width: 52,
+                height: 52,
+                fit: BoxFit.cover,
+                errorBuilder: (_, __, ___) => _buildArtworkPlaceholder(),
+              ),
     );
   }
 
@@ -238,7 +250,11 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
-  Widget _buildWrappedGenreCard(BuildContext context, String title, Color color) {
+  Widget _buildWrappedGenreCard(
+    BuildContext context,
+    String title,
+    Color color,
+  ) {
     final cardWidth = (MediaQuery.of(context).size.width - 44) / 2;
     return SizedBox(
       width: cardWidth,
@@ -253,7 +269,10 @@ class _SearchScreenState extends State<SearchScreen> {
           alignment: Alignment.topLeft,
           child: Text(
             title,
-            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),

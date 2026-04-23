@@ -40,9 +40,7 @@ class HomeArtwork extends StatelessWidget {
       width: width,
       height: height,
       color: const Color(0xFF303030),
-      child: const Center(
-        child: Icon(Icons.music_note, color: Colors.white70),
-      ),
+      child: const Center(child: Icon(Icons.music_note, color: Colors.white70)),
     );
   }
 }

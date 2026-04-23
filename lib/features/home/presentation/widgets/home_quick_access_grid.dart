@@ -36,7 +36,9 @@ class HomeQuickAccessGrid extends StatelessWidget {
             child: Row(
               children: [
                 ClipRRect(
-                  borderRadius: const BorderRadius.horizontal(left: Radius.circular(8)),
+                  borderRadius: const BorderRadius.horizontal(
+                    left: Radius.circular(8),
+                  ),
                   child: HomeArtwork(
                     imageUrl: item.imageUrl,
                     width: 62,

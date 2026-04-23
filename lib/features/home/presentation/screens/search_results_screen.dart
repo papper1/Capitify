@@ -6,10 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SearchResultsScreen extends StatelessWidget {
-  const SearchResultsScreen({
-    super.key,
-    required this.initialQuery,
-  });
+  const SearchResultsScreen({super.key, required this.initialQuery});
 
   final String initialQuery;
 
@@ -17,11 +14,13 @@ class SearchResultsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final library = context.watch<SongLibraryViewModel>();
     final normalizedQuery = initialQuery.trim().toLowerCase();
-    final results = library.songs.where((song) {
-      final title = song.title.toLowerCase();
-      final artist = song.artist.toLowerCase();
-      return title.contains(normalizedQuery) || artist.contains(normalizedQuery);
-    }).toList();
+    final results =
+        library.songs.where((song) {
+          final title = song.title.toLowerCase();
+          final artist = song.artist.toLowerCase();
+          return title.contains(normalizedQuery) ||
+              artist.contains(normalizedQuery);
+        }).toList();
 
     return Scaffold(
       backgroundColor: Colors.black,
@@ -105,21 +104,22 @@ class SearchResultsScreen extends StatelessWidget {
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(8),
-      child: isNetworkImage
-          ? Image.network(
-              song.imageUrl,
-              width: 52,
-              height: 52,
-              fit: BoxFit.cover,
-              errorBuilder: (_, __, ___) => _buildPlaceholder(),
-            )
-          : Image.asset(
-              song.imageUrl,
-              width: 52,
-              height: 52,
-              fit: BoxFit.cover,
-              errorBuilder: (_, __, ___) => _buildPlaceholder(),
-            ),
+      child:
+          isNetworkImage
+              ? Image.network(
+                song.imageUrl,
+                width: 52,
+                height: 52,
+                fit: BoxFit.cover,
+                errorBuilder: (_, __, ___) => _buildPlaceholder(),
+              )
+              : Image.asset(
+                song.imageUrl,
+                width: 52,
+                height: 52,
+                fit: BoxFit.cover,
+                errorBuilder: (_, __, ___) => _buildPlaceholder(),
+              ),
     );
   }
 

@@ -12,18 +12,15 @@ import 'package:capytify/features/auth/presentation/screens/choose_mode_screen.d
 import 'package:capytify/features/music/data/services/local_cache_service.dart';
 import 'package:capytify/features/auth/presentation/state/auth_viewmodel.dart';
 
-
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   final preferences = await SharedPreferences.getInstance();
   final localCacheService = LocalCacheService(preferences);
 
-  runApp(AppProviders(
-    localCacheService: localCacheService,
-    child: const MyApp(),
-  ));
+  runApp(
+    AppProviders(localCacheService: localCacheService, child: const MyApp()),
+  );
 }
 
 class AppProviders extends StatelessWidget {
@@ -42,14 +39,18 @@ class AppProviders extends StatelessWidget {
       providers: [
         Provider.value(value: localCacheService),
         ChangeNotifierProvider(
-          create: (_) => MiniPlayerProvider(localCacheService: localCacheService),
+          create:
+              (_) => MiniPlayerProvider(localCacheService: localCacheService),
         ),
         ChangeNotifierProvider(create: (_) => AuthViewModel()),
         ChangeNotifierProvider(
-          create: (_) => SongLibraryViewModel(localCacheService: localCacheService),
+          create:
+              (_) => SongLibraryViewModel(localCacheService: localCacheService),
         ),
         ChangeNotifierProvider(
-          create: (_) => ArtistLibraryViewModel(localCacheService: localCacheService),
+          create:
+              (_) =>
+                  ArtistLibraryViewModel(localCacheService: localCacheService),
         ),
       ],
       child: child,
@@ -92,7 +93,3 @@ class AuthGate extends StatelessWidget {
     );
   }
 }
-
-
-
-

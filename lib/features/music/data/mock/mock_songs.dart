@@ -12,14 +12,16 @@ final List<Song> mockSongs = [
     id: '2',
     title: "Blinding Lights",
     artist: "The Weeknd",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/en/0/09/The_Weeknd_-_Blinding_Lights.png",
+    imageUrl:
+        "https://upload.wikimedia.org/wikipedia/en/0/09/The_Weeknd_-_Blinding_Lights.png",
     audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
   ),
   Song(
     id: '3',
     title: "Bad Guy",
     artist: "Billie Eilish",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/en/7/7e/Billie_Eilish_-_Bad_Guy.png",
+    imageUrl:
+        "https://upload.wikimedia.org/wikipedia/en/7/7e/Billie_Eilish_-_Bad_Guy.png",
     audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
   ),
 ];

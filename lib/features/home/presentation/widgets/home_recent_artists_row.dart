@@ -25,12 +25,16 @@ class HomeRecentArtistsRow extends StatelessWidget {
             onTap: () => onTap(item),
             child: Container(
               width: 122,
-              margin: EdgeInsets.only(right: index == items.length - 1 ? 0 : 16),
+              margin: EdgeInsets.only(
+                right: index == items.length - 1 ? 0 : 16,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(item.isCircular ? 61 : 10),
+                    borderRadius: BorderRadius.circular(
+                      item.isCircular ? 61 : 10,
+                    ),
                     child: HomeArtwork(
                       imageUrl: item.imageUrl,
                       width: 122,
@@ -53,10 +57,7 @@ class HomeRecentArtistsRow extends StatelessWidget {
                     item.subtitle,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                      color: Colors.white70,
-                      fontSize: 12,
-                    ),
+                    style: const TextStyle(color: Colors.white70, fontSize: 12),
                   ),
                 ],
               ),

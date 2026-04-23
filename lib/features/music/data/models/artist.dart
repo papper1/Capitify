@@ -12,9 +12,6 @@ class Artist {
   }
 
   Map<String, dynamic> toMap() {
-    return {
-      'name': name,
-      'imageUrl': imageUrl,
-    };
+    return {'name': name, 'imageUrl': imageUrl};
   }
 }

@@ -14,71 +14,73 @@ class SongListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final songs = context
-        .watch<SongLibraryViewModel>()
-        .songs
-        .where((song) => song.artist == artist.name)
-        .toList();
+    final songs =
+        context
+            .watch<SongLibraryViewModel>()
+            .songs
+            .where((song) => song.artist == artist.name)
+            .toList();
 
     return Scaffold(
       backgroundColor: Colors.black,
-      body: songs.isEmpty
-          ? _buildEmptyState(context)
-          : CustomScrollView(
-              slivers: [
-                SliverToBoxAdapter(
-                  child: _ArtistHeader(
-                    artist: artist,
-                    monthlyListeners: _monthlyListenersText(artist.name),
-                    onBack: () => Navigator.of(context).pop(),
-                    onPlay: () => _playSongs(context, songs, 0),
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _buildMusicTab(),
-                        const SizedBox(height: 20),
-                        _buildLikedSongTile(songs),
-                        const SizedBox(height: 28),
-                        _buildSectionTitle('Pho bien'),
-                        const SizedBox(height: 12),
-                        ..._buildPopularSongs(context, songs),
-                        if (songs.length > 5) ...[
-                          const SizedBox(height: 12),
-                          Center(
-                            child: OutlinedButton(
-                              style: OutlinedButton.styleFrom(
-                                foregroundColor: Colors.white,
-                                side: const BorderSide(color: Colors.white24),
-                                shape: const StadiumBorder(),
-                              ),
-                              onPressed: () {},
-                              child: const Text('Xem them'),
-                            ),
-                          ),
-                        ],
-                        const SizedBox(height: 28),
-                        _buildSectionTitle('Lua chon cua nghe si'),
-                        const SizedBox(height: 12),
-                        _buildArtistPickCard(context, songs.first),
-                        const SizedBox(height: 28),
-                        _buildSectionHeader(
-                          title: 'Ban phat hanh noi tieng',
-                          actionLabel: 'Hien tat ca',
-                        ),
-                        const SizedBox(height: 12),
-                        _buildFeaturedRelease(context, songs.first),
-                        const SizedBox(height: 40),
-                      ],
+      body:
+          songs.isEmpty
+              ? _buildEmptyState(context)
+              : CustomScrollView(
+                slivers: [
+                  SliverToBoxAdapter(
+                    child: _ArtistHeader(
+                      artist: artist,
+                      monthlyListeners: _monthlyListenersText(artist.name),
+                      onBack: () => Navigator.of(context).pop(),
+                      onPlay: () => _playSongs(context, songs, 0),
                     ),
                   ),
-                ),
-              ],
-            ),
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 8, 16, 24),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _buildMusicTab(),
+                          const SizedBox(height: 20),
+                          _buildLikedSongTile(songs),
+                          const SizedBox(height: 28),
+                          _buildSectionTitle('Pho bien'),
+                          const SizedBox(height: 12),
+                          ..._buildPopularSongs(context, songs),
+                          if (songs.length > 5) ...[
+                            const SizedBox(height: 12),
+                            Center(
+                              child: OutlinedButton(
+                                style: OutlinedButton.styleFrom(
+                                  foregroundColor: Colors.white,
+                                  side: const BorderSide(color: Colors.white24),
+                                  shape: const StadiumBorder(),
+                                ),
+                                onPressed: () {},
+                                child: const Text('Xem them'),
+                              ),
+                            ),
+                          ],
+                          const SizedBox(height: 28),
+                          _buildSectionTitle('Lua chon cua nghe si'),
+                          const SizedBox(height: 12),
+                          _buildArtistPickCard(context, songs.first),
+                          const SizedBox(height: 28),
+                          _buildSectionHeader(
+                            title: 'Ban phat hanh noi tieng',
+                            actionLabel: 'Hien tat ca',
+                          ),
+                          const SizedBox(height: 12),
+                          _buildFeaturedRelease(context, songs.first),
+                          const SizedBox(height: 40),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
     );
   }
 
@@ -92,17 +94,18 @@ class SongListScreen extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               height: 320,
-              child: hasNetworkImage
-                  ? Image.network(
-                      artist.imageUrl,
-                      fit: BoxFit.cover,
-                      errorBuilder: (_, __, ___) => _headerFallback(),
-                    )
-                  : Image.asset(
-                      artist.imageUrl,
-                      fit: BoxFit.cover,
-                      errorBuilder: (_, __, ___) => _headerFallback(),
-                    ),
+              child:
+                  hasNetworkImage
+                      ? Image.network(
+                        artist.imageUrl,
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, __, ___) => _headerFallback(),
+                      )
+                      : Image.asset(
+                        artist.imageUrl,
+                        fit: BoxFit.cover,
+                        errorBuilder: (_, __, ___) => _headerFallback(),
+                      ),
             ),
             Positioned(
               top: 44,
@@ -140,11 +143,7 @@ class SongListScreen extends StatelessWidget {
         SizedBox(width: 20),
         SizedBox(
           width: 34,
-          child: Divider(
-            color: Color(0xFF1ED760),
-            thickness: 2,
-            height: 20,
-          ),
+          child: Divider(color: Color(0xFF1ED760), thickness: 2, height: 20),
         ),
       ],
     );
@@ -153,7 +152,7 @@ class SongListScreen extends StatelessWidget {
   Widget _buildLikedSongTile(List<Song> songs) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.03),
+        color: Colors.white.withValues(alpha: 0.03),
         borderRadius: BorderRadius.circular(16),
       ),
       child: ListTile(
@@ -162,11 +161,7 @@ class SongListScreen extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: _buildArtwork(
-                songs.first.imageUrl,
-                width: 58,
-                height: 58,
-              ),
+              child: _buildArtwork(songs.first.imageUrl, width: 58, height: 58),
             ),
             Positioned(
               right: -2,
@@ -178,7 +173,11 @@ class SongListScreen extends StatelessWidget {
                   color: Color(0xFF1ED760),
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(Icons.favorite, color: Colors.black, size: 14),
+                child: const Icon(
+                  Icons.favorite,
+                  color: Colors.black,
+                  size: 14,
+                ),
               ),
             ),
           ],
@@ -242,14 +241,21 @@ class SongListScreen extends StatelessWidget {
                       const SizedBox(height: 4),
                       Text(
                         plays,
-                        style: const TextStyle(color: Colors.white54, fontSize: 13),
+                        style: const TextStyle(
+                          color: Colors.white54,
+                          fontSize: 13,
+                        ),
                       ),
                     ],
                   ),
                 ),
                 const SizedBox(width: 12),
                 if (index == 2)
-                  const Icon(Icons.check_circle, color: Color(0xFF1ED760), size: 20),
+                  const Icon(
+                    Icons.check_circle,
+                    color: Color(0xFF1ED760),
+                    size: 20,
+                  ),
                 const SizedBox(width: 12),
                 const Icon(Icons.more_vert, color: Colors.white54),
               ],
@@ -278,8 +284,8 @@ class SongListScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(18),
             gradient: LinearGradient(
               colors: [
-                Colors.black.withOpacity(0.18),
-                Colors.black.withOpacity(0.68),
+                Colors.black.withValues(alpha: 0.18),
+                Colors.black.withValues(alpha: 0.68),
               ],
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -290,9 +296,12 @@ class SongListScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.48),
+                  color: Colors.black.withValues(alpha: 0.48),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
@@ -399,10 +408,7 @@ class SongListScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSectionHeader({
-    required String title,
-    String? actionLabel,
-  }) {
+  Widget _buildSectionHeader({required String title, String? actionLabel}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -427,11 +433,15 @@ class SongListScreen extends StatelessWidget {
     );
   }
 
-  Future<void> _playSongs(BuildContext context, List<Song> songs, int index) async {
+  Future<void> _playSongs(
+    BuildContext context,
+    List<Song> songs,
+    int index,
+  ) async {
     await context.read<MiniPlayerProvider>().setQueue(
-          songs: songs,
-          startIndex: index,
-        );
+      songs: songs,
+      startIndex: index,
+    );
     if (!context.mounted) return;
     await openNowPlayingScreen(context);
   }
@@ -478,7 +488,7 @@ class SongListScreen extends StatelessWidget {
         width: 42,
         height: 42,
         decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.34),
+          color: Colors.black.withValues(alpha: 0.34),
           shape: BoxShape.circle,
         ),
         child: Icon(icon, color: Colors.white),
@@ -562,22 +572,22 @@ class _ArtistHeader extends StatelessWidget {
         children: [
           hasNetworkImage
               ? Image.network(
-                  artist.imageUrl,
-                  fit: BoxFit.cover,
-                  errorBuilder: (_, __, ___) => _headerFallback(),
-                )
+                artist.imageUrl,
+                fit: BoxFit.cover,
+                errorBuilder: (_, __, ___) => _headerFallback(),
+              )
               : Image.asset(
-                  artist.imageUrl,
-                  fit: BoxFit.cover,
-                  errorBuilder: (_, __, ___) => _headerFallback(),
-                ),
+                artist.imageUrl,
+                fit: BoxFit.cover,
+                errorBuilder: (_, __, ___) => _headerFallback(),
+              ),
           DecoratedBox(
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Colors.black.withOpacity(0.08),
-                  Colors.black.withOpacity(0.3),
-                  Colors.black.withOpacity(0.95),
+                  Colors.black.withValues(alpha: 0.08),
+                  Colors.black.withValues(alpha: 0.3),
+                  Colors.black.withValues(alpha: 0.95),
                 ],
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -593,7 +603,7 @@ class _ArtistHeader extends StatelessWidget {
                 width: 42,
                 height: 42,
                 decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.34),
+                  color: Colors.black.withValues(alpha: 0.34),
                   shape: BoxShape.circle,
                 ),
                 child: const Icon(Icons.arrow_back, color: Colors.white),
@@ -630,21 +640,24 @@ class _ArtistHeader extends StatelessWidget {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: hasNetworkImage
-                          ? Image.network(
-                              artist.imageUrl,
-                              width: 36,
-                              height: 36,
-                              fit: BoxFit.cover,
-                              errorBuilder: (_, __, ___) => _miniAvatarFallback(),
-                            )
-                          : Image.asset(
-                              artist.imageUrl,
-                              width: 36,
-                              height: 36,
-                              fit: BoxFit.cover,
-                              errorBuilder: (_, __, ___) => _miniAvatarFallback(),
-                            ),
+                      child:
+                          hasNetworkImage
+                              ? Image.network(
+                                artist.imageUrl,
+                                width: 36,
+                                height: 36,
+                                fit: BoxFit.cover,
+                                errorBuilder:
+                                    (_, __, ___) => _miniAvatarFallback(),
+                              )
+                              : Image.asset(
+                                artist.imageUrl,
+                                width: 36,
+                                height: 36,
+                                fit: BoxFit.cover,
+                                errorBuilder:
+                                    (_, __, ___) => _miniAvatarFallback(),
+                              ),
                     ),
                     const SizedBox(width: 12),
                     OutlinedButton(
@@ -652,7 +665,10 @@ class _ArtistHeader extends StatelessWidget {
                         foregroundColor: Colors.white,
                         side: const BorderSide(color: Colors.white24),
                         shape: const StadiumBorder(),
-                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 10,
+                        ),
                       ),
                       onPressed: () {},
                       child: const Text(
@@ -674,7 +690,11 @@ class _ArtistHeader extends StatelessWidget {
                           color: Color(0xFF1ED760),
                           shape: BoxShape.circle,
                         ),
-                        child: const Icon(Icons.play_arrow, color: Colors.black, size: 34),
+                        child: const Icon(
+                          Icons.play_arrow,
+                          color: Colors.black,
+                          size: 34,
+                        ),
                       ),
                     ),
                   ],

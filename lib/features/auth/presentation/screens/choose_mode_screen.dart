@@ -37,7 +37,11 @@ class ChooseModeScreen extends StatelessWidget {
                 const SizedBox(height: 8),
                 Text(
                   user?.email ?? 'Chua dang nhap',
-                  style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ],
             ),
@@ -46,18 +50,22 @@ class ChooseModeScreen extends StatelessWidget {
           ListTile(
             contentPadding: const EdgeInsets.symmetric(horizontal: 4),
             leading: const Icon(Icons.logout, color: Colors.white),
-            title: const Text('Dang xuat', style: TextStyle(color: Colors.white)),
+            title: const Text(
+              'Dang xuat',
+              style: TextStyle(color: Colors.white),
+            ),
             subtitle: const Text(
               'Thoat khoi tai khoan hien tai',
               style: TextStyle(color: Colors.white70),
             ),
-            onTap: authViewModel.isLoading
-                ? null
-                : () async {
-                    await context.read<AuthViewModel>().signOut();
-                    if (!context.mounted) return;
-                    Navigator.of(context).popUntil((route) => route.isFirst);
-                  },
+            onTap:
+                authViewModel.isLoading
+                    ? null
+                    : () async {
+                      await context.read<AuthViewModel>().signOut();
+                      if (!context.mounted) return;
+                      Navigator.of(context).popUntil((route) => route.isFirst);
+                    },
           ),
           if (authViewModel.isLoading)
             const Padding(

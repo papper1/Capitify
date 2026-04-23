@@ -18,7 +18,11 @@ class HomeErrorState extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.library_music_outlined, color: Colors.white54, size: 44),
+            const Icon(
+              Icons.library_music_outlined,
+              color: Colors.white54,
+              size: 44,
+            ),
             const SizedBox(height: 14),
             Text(
               message,

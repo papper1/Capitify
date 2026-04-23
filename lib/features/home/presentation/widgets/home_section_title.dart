@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 
 class HomeSectionTitle extends StatelessWidget {
-  const HomeSectionTitle({
-    super.key,
-    required this.title,
-    this.trailing,
-  });
+  const HomeSectionTitle({super.key, required this.title, this.trailing});
 
   final String title;
   final String? trailing;

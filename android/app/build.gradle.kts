@@ -23,7 +23,7 @@ android {
         applicationId = "com.example.capytify"
 
         // 🌟 Thay flutter.minSdkVersion thành 23 để tương thích Firebase Auth
-        minSdk = 23
+        minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName

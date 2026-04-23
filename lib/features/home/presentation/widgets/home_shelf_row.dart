@@ -3,11 +3,7 @@ import 'package:capytify/features/home/presentation/widgets/home_featured_artwor
 import 'package:flutter/material.dart';
 
 class HomeShelfRow extends StatelessWidget {
-  const HomeShelfRow({
-    super.key,
-    required this.items,
-    required this.onTap,
-  });
+  const HomeShelfRow({super.key, required this.items, required this.onTap});
 
   final List<HomeShelfCardData> items;
   final ValueChanged<HomeShelfCardData> onTap;
@@ -25,7 +21,9 @@ class HomeShelfRow extends StatelessWidget {
             onTap: () => onTap(item),
             child: Container(
               width: 168,
-              margin: EdgeInsets.only(right: index == items.length - 1 ? 0 : 16),
+              margin: EdgeInsets.only(
+                right: index == items.length - 1 ? 0 : 16,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

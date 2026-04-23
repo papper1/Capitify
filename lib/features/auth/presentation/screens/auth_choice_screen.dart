@@ -72,7 +72,10 @@ class AuthChoiceScreen extends StatelessWidget {
                               begin: const Offset(1.0, 0.0),
                               end: Offset.zero,
                             ).animate(
-                              CurvedAnimation(parent: animation, curve: Curves.ease),
+                              CurvedAnimation(
+                                parent: animation,
+                                curve: Curves.ease,
+                              ),
                             ),
                             child: child,
                           );
@@ -113,7 +116,10 @@ class AuthChoiceScreen extends StatelessWidget {
                               begin: const Offset(1.0, 0.0),
                               end: Offset.zero,
                             ).animate(
-                              CurvedAnimation(parent: animation, curve: Curves.ease),
+                              CurvedAnimation(
+                                parent: animation,
+                                curve: Curves.ease,
+                              ),
                             ),
                             child: child,
                           );
