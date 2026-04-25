@@ -11,6 +11,7 @@ class LocalCacheService {
   static const String _songsKey = 'cached_songs';
   static const String _artistsKey = 'cached_artists';
   static const String _recentlyPlayedKey = 'cached_recently_played';
+  static const String _playerStateKey = 'cached_player_state';
 
   final SharedPreferences _preferences;
 
@@ -81,5 +82,29 @@ class LocalCacheService {
         .map((item) => Song.fromMap(Map<String, dynamic>.from(item)))
         .where((song) => song.id.isNotEmpty)
         .toList();
+  }
+
+  Future<void> savePlayerState(Map<String, dynamic> state) async {
+    await _preferences.setString(_playerStateKey, jsonEncode(state));
+  }
+
+  Map<String, dynamic>? loadPlayerState() {
+    final raw = _preferences.getString(_playerStateKey);
+    if (raw == null || raw.isEmpty) {
+      return null;
+    }
+
+    final Object? decoded;
+    try {
+      decoded = jsonDecode(raw);
+    } catch (_) {
+      return null;
+    }
+
+    if (decoded is! Map) {
+      return null;
+    }
+
+    return Map<String, dynamic>.from(decoded);
   }
 }

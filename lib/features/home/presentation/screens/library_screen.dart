@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:capytify/shared/widgets/cached_app_image.dart';
 
 class LibraryScreen extends StatelessWidget {
   const LibraryScreen({super.key});
@@ -13,8 +15,8 @@ class LibraryScreen extends StatelessWidget {
         elevation: 0,
         title: Row(
           children: [
-            const CircleAvatar(
-              backgroundImage: NetworkImage(
+            CircleAvatar(
+              backgroundImage: CachedNetworkImageProvider(
                 'https://i.imgur.com/your-avatar.jpg',
               ),
               radius: 16,
@@ -141,11 +143,10 @@ class LibraryScreen extends StatelessWidget {
               child:
                   isSvg
                       ? SvgPicture.asset(imagePath, width: 50, height: 50)
-                      : Image.network(
-                        imagePath,
+                      : CachedAppImage(
+                        imageUrl: imagePath,
                         width: 50,
                         height: 50,
-                        fit: BoxFit.cover,
                       ),
             ),
             if (centerIcon != null)

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -127,7 +128,10 @@ class ProfileScreen extends StatelessWidget {
         label.isNotEmpty ? label.substring(0, 1).toUpperCase() : 'U';
 
     if (photoUrl != null && photoUrl.isNotEmpty) {
-      return CircleAvatar(radius: 40, backgroundImage: NetworkImage(photoUrl));
+      return CircleAvatar(
+        radius: 40,
+        backgroundImage: CachedNetworkImageProvider(photoUrl),
+      );
     }
 
     return CircleAvatar(

@@ -3,6 +3,7 @@ import 'package:capytify/features/music/presentation/state/mini_player_provider.
 import 'package:capytify/features/music/presentation/state/song_library_viewmodel.dart';
 import 'package:capytify/features/home/presentation/screens/search_results_screen.dart';
 import 'package:capytify/features/music/presentation/screens/song_player_screen.dart';
+import 'package:capytify/shared/widgets/cached_app_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -182,9 +183,15 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             trailing: const Icon(Icons.north_west, color: Colors.white54),
             onTap: () async {
+              final librarySongs = library.songs;
+              final queue = librarySongs.isNotEmpty ? librarySongs : suggestions;
+              final queueIndex = queue.indexWhere(
+                (candidate) => candidate.id == song.id,
+              );
+
               await context.read<MiniPlayerProvider>().setQueue(
-                songs: suggestions,
-                startIndex: index,
+                songs: queue,
+                startIndex: queueIndex >= 0 ? queueIndex : index,
               );
               if (!context.mounted) return;
               await openNowPlayingScreen(context);
@@ -218,26 +225,14 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Widget _buildSongArtwork(Song song) {
-    final isNetworkImage = song.imageUrl.startsWith('http');
-
     return ClipRRect(
       borderRadius: BorderRadius.circular(8),
-      child:
-          isNetworkImage
-              ? Image.network(
-                song.imageUrl,
-                width: 52,
-                height: 52,
-                fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => _buildArtworkPlaceholder(),
-              )
-              : Image.asset(
-                song.imageUrl,
-                width: 52,
-                height: 52,
-                fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => _buildArtworkPlaceholder(),
-              ),
+      child: CachedAppImage(
+        imageUrl: song.imageUrl,
+        width: 52,
+        height: 52,
+        placeholder: _buildArtworkPlaceholder(),
+      ),
     );
   }
 

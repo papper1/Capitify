@@ -1,6 +1,7 @@
 import 'package:capytify/features/music/data/models/song.dart';
 import 'package:capytify/features/music/presentation/state/mini_player_provider.dart';
 import 'package:capytify/features/music/presentation/screens/song_player_screen.dart';
+import 'package:capytify/shared/widgets/cached_app_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,29 +9,15 @@ class MiniPlayer extends StatelessWidget {
   const MiniPlayer({super.key});
 
   Widget _buildArtwork(String imageUrl, {double size = 40}) {
-    final isNetworkImage = imageUrl.startsWith('http');
-    final image =
-        isNetworkImage
-            ? Image.network(
-              imageUrl,
-              width: size,
-              height: size,
-              fit: BoxFit.cover,
-              errorBuilder:
-                  (_, __, ___) =>
-                      Icon(Icons.music_note, size: size, color: Colors.white),
-            )
-            : Image.asset(
-              imageUrl,
-              width: size,
-              height: size,
-              fit: BoxFit.cover,
-              errorBuilder:
-                  (_, __, ___) =>
-                      Icon(Icons.music_note, size: size, color: Colors.white),
-            );
-
-    return ClipRRect(borderRadius: BorderRadius.circular(4), child: image);
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(4),
+      child: CachedAppImage(
+        imageUrl: imageUrl,
+        width: size,
+        height: size,
+        placeholder: Icon(Icons.music_note, size: size, color: Colors.white),
+      ),
+    );
   }
 
   @override

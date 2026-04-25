@@ -16,6 +16,7 @@ import 'package:capytify/features/home/presentation/widgets/home_section_title.d
 import 'package:capytify/features/home/presentation/widgets/home_shelf_row.dart';
 import 'package:capytify/features/home/presentation/widgets/home_top_bar.dart';
 import 'package:capytify/features/auth/presentation/screens/profile_screen.dart';
+import 'package:capytify/features/music/data/models/song.dart';
 import 'package:capytify/features/music/presentation/screens/song_list_screen.dart';
 import 'package:capytify/features/music/presentation/screens/song_player_screen.dart';
 import 'package:flutter/material.dart';
@@ -181,12 +182,7 @@ class HomeScreen extends StatelessWidget {
     HomeQuickAccessItem item,
   ) async {
     if (item.song != null) {
-      await context.read<MiniPlayerProvider>().setQueue(
-        songs: [item.song!],
-        startIndex: 0,
-      );
-      if (!context.mounted) return;
-      await openNowPlayingScreen(context);
+      await _playFromLibrary(context, item.song!);
       return;
     }
 
@@ -211,12 +207,7 @@ class HomeScreen extends StatelessWidget {
     }
 
     if (item.song != null) {
-      await context.read<MiniPlayerProvider>().setQueue(
-        songs: [item.song!],
-        startIndex: 0,
-      );
-      if (!context.mounted) return;
-      await openNowPlayingScreen(context);
+      await _playFromLibrary(context, item.song!);
     }
   }
 
@@ -224,9 +215,16 @@ class HomeScreen extends StatelessWidget {
     BuildContext context,
     HomeShelfCardData item,
   ) async {
+    await _playFromLibrary(context, item.song);
+  }
+
+  Future<void> _playFromLibrary(BuildContext context, Song selectedSong) async {
+    final songs = context.read<SongLibraryViewModel>().songs;
+    final index = songs.indexWhere((song) => song.id == selectedSong.id);
+
     await context.read<MiniPlayerProvider>().setQueue(
-      songs: [item.song],
-      startIndex: 0,
+      songs: songs.isNotEmpty ? songs : [selectedSong],
+      startIndex: index >= 0 ? index : 0,
     );
     if (!context.mounted) return;
     await openNowPlayingScreen(context);

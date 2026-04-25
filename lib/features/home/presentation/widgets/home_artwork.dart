@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:capytify/shared/widgets/cached_app_image.dart';
 
 class HomeArtwork extends StatelessWidget {
   const HomeArtwork({
@@ -14,24 +15,12 @@ class HomeArtwork extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isNetworkImage = imageUrl.startsWith('http');
-
-    if (isNetworkImage) {
-      return Image.network(
-        imageUrl,
-        width: width,
-        height: height,
-        fit: BoxFit.cover,
-        errorBuilder: (_, __, ___) => _placeholder(),
-      );
-    }
-
-    return Image.asset(
-      imageUrl,
+    return CachedAppImage(
+      imageUrl: imageUrl,
       width: width,
       height: height,
       fit: BoxFit.cover,
-      errorBuilder: (_, __, ___) => _placeholder(),
+      placeholder: _placeholder(),
     );
   }
 

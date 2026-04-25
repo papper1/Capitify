@@ -1,5 +1,6 @@
 import 'package:capytify/features/music/data/models/song.dart';
 import 'package:capytify/features/music/presentation/state/mini_player_provider.dart';
+import 'package:capytify/shared/widgets/cached_app_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -29,36 +30,19 @@ class NowPlayingContent extends StatelessWidget {
 
   Widget _buildArtwork(BuildContext context, String imageUrl) {
     final size = MediaQuery.of(context).size.width * 0.8;
-    final isNetworkImage = imageUrl.startsWith('http');
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(8),
-      child:
-          isNetworkImage
-              ? Image.network(
-                imageUrl,
-                width: size,
-                height: size,
-                fit: BoxFit.cover,
-                errorBuilder:
-                    (_, __, ___) => Icon(
-                      Icons.music_note,
-                      size: size * 0.4,
-                      color: Colors.white,
-                    ),
-              )
-              : Image.asset(
-                imageUrl,
-                width: size,
-                height: size,
-                fit: BoxFit.cover,
-                errorBuilder:
-                    (_, __, ___) => Icon(
-                      Icons.music_note,
-                      size: size * 0.4,
-                      color: Colors.white,
-                    ),
-              ),
+      child: CachedAppImage(
+        imageUrl: imageUrl,
+        width: size,
+        height: size,
+        placeholder: Icon(
+          Icons.music_note,
+          size: size * 0.4,
+          color: Colors.white,
+        ),
+      ),
     );
   }
 

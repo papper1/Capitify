@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class HomeTopBar extends StatelessWidget {
@@ -49,7 +50,10 @@ class HomeTopBar extends StatelessWidget {
         label.isNotEmpty ? label.substring(0, 1).toUpperCase() : 'U';
 
     if (photoUrl != null && photoUrl!.isNotEmpty) {
-      return CircleAvatar(radius: 22, backgroundImage: NetworkImage(photoUrl!));
+      return CircleAvatar(
+        radius: 22,
+        backgroundImage: CachedNetworkImageProvider(photoUrl!),
+      );
     }
 
     return CircleAvatar(

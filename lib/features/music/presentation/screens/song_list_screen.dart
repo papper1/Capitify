@@ -2,6 +2,8 @@ import 'package:capytify/features/music/data/models/artist.dart';
 import 'package:capytify/features/music/data/models/song.dart';
 import 'package:capytify/features/music/presentation/state/mini_player_provider.dart';
 import 'package:capytify/features/music/presentation/state/song_library_viewmodel.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:capytify/shared/widgets/cached_app_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -85,8 +87,6 @@ class SongListScreen extends StatelessWidget {
   }
 
   Widget _buildEmptyState(BuildContext context) {
-    final hasNetworkImage = artist.imageUrl.startsWith('http');
-
     return Column(
       children: [
         Stack(
@@ -94,18 +94,12 @@ class SongListScreen extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               height: 320,
-              child:
-                  hasNetworkImage
-                      ? Image.network(
-                        artist.imageUrl,
-                        fit: BoxFit.cover,
-                        errorBuilder: (_, __, ___) => _headerFallback(),
-                      )
-                      : Image.asset(
-                        artist.imageUrl,
-                        fit: BoxFit.cover,
-                        errorBuilder: (_, __, ___) => _headerFallback(),
-                      ),
+              child: CachedAppImage(
+                imageUrl: artist.imageUrl,
+                width: double.infinity,
+                height: 320,
+                placeholder: _headerFallback(),
+              ),
             ),
             Positioned(
               top: 44,
@@ -438,9 +432,25 @@ class SongListScreen extends StatelessWidget {
     List<Song> songs,
     int index,
   ) async {
+    final artistSongs =
+        context
+            .read<SongLibraryViewModel>()
+            .songs
+            .where((song) => song.artist == artist.name)
+            .toList();
+    final queue = artistSongs.isNotEmpty ? artistSongs : songs;
+    final selectedSong =
+        songs.isNotEmpty && index >= 0 && index < songs.length
+            ? songs[index]
+            : null;
+    final queueIndex =
+        selectedSong == null
+            ? index
+            : queue.indexWhere((song) => song.id == selectedSong.id);
+
     await context.read<MiniPlayerProvider>().setQueue(
-      songs: songs,
-      startIndex: index,
+      songs: queue,
+      startIndex: queueIndex >= 0 ? queueIndex : index,
     );
     if (!context.mounted) return;
     await openNowPlayingScreen(context);
@@ -501,24 +511,11 @@ class SongListScreen extends StatelessWidget {
     required double width,
     required double height,
   }) {
-    final isNetworkImage = imageUrl.startsWith('http');
-
-    if (isNetworkImage) {
-      return Image.network(
-        imageUrl,
-        width: width,
-        height: height,
-        fit: BoxFit.cover,
-        errorBuilder: (_, __, ___) => _artworkPlaceholder(width, height),
-      );
-    }
-
-    return Image.asset(
-      imageUrl,
+    return CachedAppImage(
+      imageUrl: imageUrl,
       width: width,
       height: height,
-      fit: BoxFit.cover,
-      errorBuilder: (_, __, ___) => _artworkPlaceholder(width, height),
+      placeholder: _artworkPlaceholder(width, height),
     );
   }
 
@@ -542,7 +539,7 @@ class SongListScreen extends StatelessWidget {
 
   ImageProvider _imageProviderFor(String imageUrl) {
     if (imageUrl.startsWith('http')) {
-      return NetworkImage(imageUrl);
+      return CachedNetworkImageProvider(imageUrl);
     }
     return AssetImage(imageUrl);
   }
@@ -563,24 +560,17 @@ class _ArtistHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final hasNetworkImage = artist.imageUrl.startsWith('http');
-
     return SizedBox(
       height: 430,
       child: Stack(
         fit: StackFit.expand,
         children: [
-          hasNetworkImage
-              ? Image.network(
-                artist.imageUrl,
-                fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => _headerFallback(),
-              )
-              : Image.asset(
-                artist.imageUrl,
-                fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => _headerFallback(),
-              ),
+          CachedAppImage(
+            imageUrl: artist.imageUrl,
+            width: double.infinity,
+            height: 430,
+            placeholder: _headerFallback(),
+          ),
           DecoratedBox(
             decoration: BoxDecoration(
               gradient: LinearGradient(
@@ -640,24 +630,12 @@ class _ArtistHeader extends StatelessWidget {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child:
-                          hasNetworkImage
-                              ? Image.network(
-                                artist.imageUrl,
-                                width: 36,
-                                height: 36,
-                                fit: BoxFit.cover,
-                                errorBuilder:
-                                    (_, __, ___) => _miniAvatarFallback(),
-                              )
-                              : Image.asset(
-                                artist.imageUrl,
-                                width: 36,
-                                height: 36,
-                                fit: BoxFit.cover,
-                                errorBuilder:
-                                    (_, __, ___) => _miniAvatarFallback(),
-                              ),
+                      child: CachedAppImage(
+                        imageUrl: artist.imageUrl,
+                        width: 36,
+                        height: 36,
+                        placeholder: _miniAvatarFallback(),
+                      ),
                     ),
                     const SizedBox(width: 12),
                     OutlinedButton(
